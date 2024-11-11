@@ -17,7 +17,8 @@
 
 
 /* Giving the body and html element 100dvh */
-body, html {
+body,
+html {
     height: 100dvh;
 }
 
@@ -143,10 +144,10 @@ header .butt {
     align-items: center;
     border: var(--lightgray), solid, 5px;
     box-shadow:
-  3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
-  10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
-  25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
-  85px 85px 106px rgba(0, 0, 0, 0.2);
+        3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
+        10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
+        25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
+        85px 85px 106px rgba(0, 0, 0, 0.2);
 }
 
 /* The styling for the map */
@@ -156,7 +157,7 @@ svg path {
     stroke-width: .25;
 }
 
-svg path:hover{
+svg path:hover {
     fill: var(--green);
     transition: 0.6s;
     cursor: pointer;
@@ -175,11 +176,11 @@ svg path:hover{
     border-radius: 10px;
     border: var(--lightgray), solid, 5px;
     box-shadow:
-  3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
-  10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
-  25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
-  85px 85px 106px rgba(0, 0, 0, 0.2);
-  position: relative;
+        3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
+        10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
+        25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
+        85px 85px 106px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 /* Styling for the search box */
@@ -198,7 +199,7 @@ svg path:hover{
 
 #input-box {
     flex: 1;
-    height: 50px;
+    height: 30px;
     background: transparent;
     border: 0;
     outline: 0;
@@ -209,11 +210,11 @@ svg path:hover{
 .magni-button {
     background: transparent;
     border: 0;
-    outline: 0; 
+    outline: 0;
 }
 
 .magni-button .fa-solid {
-    width: 25px;
+    width: 20px;
     color: #555;
     font-size: 22px;
     cursor: pointer;
@@ -249,7 +250,7 @@ svg path:hover{
     border-radius: 10px;
 }
 
-.result-box ul{
+.result-box ul {
     border-top: 1px solid #999;
     padding: 15px 10px;
 }
@@ -307,6 +308,75 @@ svg path:hover{
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.year-filter {
+    position: absolute;
+    right: 10px;
+    top: 90px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+
+}
+
+.year-filter input {
+    padding: 18px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    width: 219px;
+    margin: 3px 1px;
+}
+
+#fa-magnifying-glass {
+    margin: 3px 7px;
+}
+
+.min-rate {
+    fill: yellow !important;
+    /* Highlight with yellow for minimum rate */
+}
+
+.max-rate {
+    fill: red !important;
+    /* Highlight with red for maximum rate */
+}
+
+.gradient-legend {
+    position: absolute;
+    bottom: 20px;
+    left: 530px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 150px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    z-index: 10;
+    /* Ensures it appears on top of the map */
+}
+
+.legend-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.gradient-bar {
+    height: 20px;
+    background: linear-gradient(to right, yellow, red);
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.legend-labels {
+    display: flex;
+    justify-content: space-between;
+}
+
+.min-label,
+.max-label {
+    font-size: 10px;
 }
 
 
