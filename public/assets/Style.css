@@ -344,39 +344,53 @@ svg path:hover {
 .gradient-legend {
     position: absolute;
     bottom: 20px;
-    left: 530px;
-    background-color: rgba(255, 255, 255, 0.9);
+    left: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    width: 150px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    z-index: 10;
-    /* Ensures it appears on top of the map */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .legend-title {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 14px;
 }
 
 .gradient-bar {
-    height: 20px;
+    width: 200px;
+    height: 15px;
     background: linear-gradient(to right, yellow, red);
+    border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .legend-labels {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
-.min-label,
-.max-label {
-    font-size: 10px;
+.legend-labels span {
+    font-size: 12px;
+    color: #555;
+}
+
+.dynamic-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.dynamic-labels span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
 }
 
 
