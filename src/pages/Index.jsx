@@ -73,6 +73,11 @@ function Index() {
     const [selectedYearRight, setSelectedYearRight] = useState("");
     const [showGradientScale, setShowGradientScale] = useState(false); // For showing/hiding the gradient scale
 
+    const [minRate, setMinRate] = useState(null);
+    const [midRate, setMidRate] = useState(null);
+    const [maxRate, setMaxRate] = useState(null);
+
+
 
     const [results, setResults] = useState([]);  // Placeholder state for search results or data
     const [inputFocused, setInputFocused] = useState(false);  // Tracks if the input field is focused (for UX purposes)
@@ -483,14 +488,19 @@ function Index() {
                 path.style.fill = "#686D76"; // Reset to default color
                 delete path.dataset.tooltipText; // Remove any tooltip text
             });
+            setShowGradientScale(false);
             return; // Exit the function since no further processing is needed
         }
+        const minRate = Math.min(...allDataForYear.map(d => d.Percent));
+        const maxRate = Math.max(...allDataForYear.map(d => d.Percent));
+        const midRate = ((minRate + maxRate) / 2).toFixed(2);
+
+        setMinRate(minRate.toFixed(2));
+        setMaxRate(maxRate.toFixed(2));
+        setMidRate(midRate);
 
         // Show the gradient scale only when data is found and the map is updated
         setShowGradientScale(true);
-
-        const minRate = Math.min(...allDataForYear.map(d => d.Percent));
-        const maxRate = Math.max(...allDataForYear.map(d => d.Percent));
 
         // Create a color scale from yellow to red based on rate
         const colorScale = scaleLinear()
@@ -802,11 +812,24 @@ function Index() {
                     {/* Gradient Scale Legend */}
                     {showGradientScale && (
                         <div className="gradient-legend">
+                            {/* Title for the gradient legend */}
                             <div className="legend-title">Rate Scale</div>
+
+                            {/* Gradient bar */}
                             <div className="gradient-bar"></div>
+
+                            {/* Static labels for Low and High */}
                             <div className="legend-labels">
                                 <span className="min-label">Low</span>
+                                <span className="mid-label">Mid</span>
                                 <span className="max-label">High</span>
+                            </div>
+
+                            {/* Dynamic labels showing min, mid, and max rates */}
+                            <div className="dynamic-labels">
+                                <span>{minRate}%</span>
+                                <span>{midRate}%</span>
+                                <span>{maxRate}%</span>
                             </div>
                         </div>
                     )}
