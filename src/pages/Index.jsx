@@ -793,7 +793,7 @@ function Index() {
                         <input
                             id="input-box"
                             type="text"
-                            placeholder="Filter a year (1990-2021)"
+                            placeholder="Enter a year (1990-2021)"
                             value={inputYearRight}
                             onChange={(e) => setInputYearRight(e.target.value.trim())} // Update the right search input state
                             onKeyDown={(e) => {
@@ -813,7 +813,7 @@ function Index() {
                     {showGradientScale && (
                         <div className="gradient-legend">
                             {/* Title for the gradient legend */}
-                            <div className="legend-title">Rate Scale</div>
+                            <div className="legend-title">Rate Scale for {inputYearRight}</div>
 
                             {/* Gradient bar */}
                             <div className="gradient-bar"></div>
