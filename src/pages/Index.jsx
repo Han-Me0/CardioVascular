@@ -76,6 +76,8 @@ function Index() {
     const [minRate, setMinRate] = useState(null);
     const [midRate, setMidRate] = useState(null);
     const [maxRate, setMaxRate] = useState(null);
+    const [confirmedYearRight, setConfirmedYearRight] = useState(""); // Stores confirmed year
+
 
 
 
@@ -442,7 +444,13 @@ function Index() {
         }
 
         const yearInt = parseInt(inputYearRight, 10);
-        const allDataForYear = [];
+        if (isNaN(yearInt) || yearInt < 1990 || yearInt > 2021) {
+            alert("Please enter a valid year between 1990 and 2021.");
+            return;
+        }
+
+        // Define `allDataForYear` at the top
+        let allDataForYear = [];
 
         // Collect data for the selected year across all countries
         const promises = Object.entries(countryDataMap).map(async ([countryName, csvFile]) => {
@@ -501,6 +509,7 @@ function Index() {
 
         // Show the gradient scale only when data is found and the map is updated
         setShowGradientScale(true);
+        setConfirmedYearRight(inputYearRight); // Set the confirmed year after search
 
         // Create a color scale from yellow to red based on rate
         const colorScale = scaleLinear()
@@ -813,7 +822,7 @@ function Index() {
                     {showGradientScale && (
                         <div className="gradient-legend">
                             {/* Title for the gradient legend */}
-                            <div className="legend-title">Rate Scale for {inputYearRight}</div>
+                            <div className="legend-title">Rate Scale for {confirmedYearRight}</div>
 
                             {/* Gradient bar */}
                             <div className="gradient-bar"></div>
