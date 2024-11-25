@@ -20,7 +20,6 @@ import Papa from 'papaparse';
 import { Bar } from 'react-chartjs-2';
 
 import { scaleLinear } from "d3-scale";
-import * as d3 from "d3"; // Import d3 to use for color interpolation if needed
 
 // Importing various parts of the Chart.js library for setting up and rendering charts
 import {
@@ -812,8 +811,8 @@ function Index() {
                                         border: "1px solid #ccc",
                                         color: "#373A40",
                                         borderRadius: "8px",
-                                        backgroundColor: "#f9f9f9",
-                                        margin: "20px 0",
+                                        backgroundColor: "rgb(242, 242, 242)",
+                                        margin: "79px 33px 0px 33px",
                                     }}
                                 >
                                     <h3>

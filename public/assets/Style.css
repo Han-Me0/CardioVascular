@@ -462,6 +462,11 @@ svg path:hover {
     }
 }
 
+@media (max-width: 1903px) {
+    .country-rate {
+        margin-top: 40px;
+    }
+}
 
 @media (max-width: 1024px) {
     .information {
@@ -525,8 +530,6 @@ svg path:hover {
         border-radius: 7px;
         margin: 0 auto;
         border-color: transparent;
-
-        /* Center the section */
     }
 
     canvas canvas img {
