@@ -20,7 +20,6 @@ import Papa from 'papaparse';
 import { Bar } from 'react-chartjs-2';
 
 import { scaleLinear } from "d3-scale";
-import * as d3 from "d3"; // Import d3 to use for color interpolation if needed
 
 // Importing various parts of the Chart.js library for setting up and rendering charts
 import {
@@ -76,6 +75,8 @@ function Index() {
     const [minRate, setMinRate] = useState(null);
     const [midRate, setMidRate] = useState(null);
     const [maxRate, setMaxRate] = useState(null);
+    const [confirmedYearRight, setConfirmedYearRight] = useState(""); // Stores confirmed year
+
 
 
 
@@ -115,42 +116,21 @@ function Index() {
     // Function to handle input change and filter years
     const handleYearInputChangeLeft = (e) => {
         const input = e.target.value;
+
+        // Validate year input
+        if (input && !availableYears.includes(input)) {
+            alert("Please enter a valid year from 1990 to 2021.");
+            e.target.value = ""; // Clear invalid input
+            setInputYearLeft("");
+            return;
+        }
+
         setInputYearLeft(input);
-        console.log(`Year input changed to: ${input}`); // Debug log
 
-        // Clear the right-side state
-        setInputYearRight("");
-        setSelectedYearRight("");
-        setShowGradientScale(false);
-
-        // Clear tooltips for min and max rate countries
-        const existingMinTooltip = document.getElementById("min-tooltip");
-        if (existingMinTooltip) {
-            existingMinTooltip.remove();
-        }
-
-        const existingMaxTooltip = document.getElementById("max-tooltip");
-        if (existingMaxTooltip) {
-            existingMaxTooltip.remove();
-        }
-
-        // Clear map highlights
-        const paths = document.querySelectorAll("svg path");
-        paths.forEach((path) => {
-            path.style.fill = "#686D76"; // Reset to default color
-            delete path.dataset.tooltipText;
-        });
-
-        // Filter years based on input and set the dropdown results. Only filter if a country is selected
-        if (input && selectedCountry) {
-            const matchingYears = availableYears.filter(year =>
-                year.startsWith(input)
-            );
-            setFilteredYearsLeft(matchingYears);
-            console.log("Filtered years:", matchingYears); // Debug log
-        } else {
-            setFilteredYearsLeft([]);
-        }
+        const matchingYears = availableYears.filter((year) =>
+            year.startsWith(input)
+        );
+        setFilteredYearsLeft(matchingYears);
     };
 
     // Function triggered when a country is clicked or selected
@@ -159,9 +139,9 @@ function Index() {
         setSelectedCountry(countryName);  // Set the selected country
         setInputYearLeft("");  // Clear any previous year selection
         //setSelectedYearRight([]); // Reset data for the new country selection
-        setFilteredYearsLeft([]); // Clear filtered years
-        // Normalizing the fetched data in `handleCountryClick`
-        setSelectedYearData([]);
+        setFilteredYearsLeft([]); // Reset filtered years
+        setCountryRate(null); // Reset country rate to hide the div
+        setSelectedYear(null); // Reset selected year
 
         // Clear the right-side state
         setInputYearRight("");
@@ -442,7 +422,13 @@ function Index() {
         }
 
         const yearInt = parseInt(inputYearRight, 10);
-        const allDataForYear = [];
+        if (isNaN(yearInt) || yearInt < 1990 || yearInt > 2021) {
+            alert("Please enter a valid year between 1990 and 2021.");
+            return;
+        }
+
+        // Define `allDataForYear` at the top
+        let allDataForYear = [];
 
         // Collect data for the selected year across all countries
         const promises = Object.entries(countryDataMap).map(async ([countryName, csvFile]) => {
@@ -501,6 +487,7 @@ function Index() {
 
         // Show the gradient scale only when data is found and the map is updated
         setShowGradientScale(true);
+        setConfirmedYearRight(inputYearRight); // Set the confirmed year after search
 
         // Create a color scale from yellow to red based on rate
         const colorScale = scaleLinear()
@@ -549,24 +536,22 @@ function Index() {
 
     // Function to handle selecting a year from the dropdown
     const selectYearLeft = (year) => {
-        console.log(`Year selected from dropdown: ${year}`); // Debug log
-        setInputYearLeft(year); // Set the selected year
+        if (!availableYears.includes(year)) {
+            alert("Invalid year. Please select a year from the dropdown.");
+            return;
+        }
+
+        setInputYearLeft(year);
         setFilteredYearsLeft([]);
         setSelectedYear(year);
 
-        // Check if the data is correctly filtered
-        const yearData = selectedYearData.find(item => {
-            console.log(`Checking item:`, item);
-            return item.Year === parseInt(year, 10);
-        });
-
-        console.log("Filtered year data:", yearData);
+        const yearData = selectedYearData.find(
+            (item) => item.Year === parseInt(year, 10)
+        );
 
         if (yearData && !isNaN(yearData.Percent)) {
-            console.log(`Parsed rate for ${selectedCountry} in ${year}: ${yearData.Percent}`);
             setCountryRate(yearData.Percent);
         } else {
-            console.log("No valid data found for the selected year");
             setCountryRate("Data Unavailable");
         }
     };
@@ -597,23 +582,29 @@ function Index() {
 
     // Handles the input change event in the search box
     const handleInputChange = (e) => {
-        const input = e.target.value;  // Get the current value entered by the user
-        let result = [];
+        const input = e.target.value;
+        const result = availableKeywords.filter((keyword) =>
+            keyword.toLowerCase().startsWith(input.toLowerCase())
+        );
 
-        // If there is input, filter the available keywords to match the input
-        if (input.length) {
-            result = availableKeywords.filter((keyword) => {
-                return keyword.toLowerCase().includes(input.toLowerCase());  // Perform a case-insensitive match
-            });
+        setResults(result);
+
+        // If the input is invalid and not in the available list
+        if (input && result.length === 0) {
+            alert("Please select a valid country from the list.");
+            e.target.value = ""; // Clear the invalid input
         }
-
-        setResults(result);  // Update the search results with the filtered countries
     };
 
     // Handles the action when a country is selected from the list
     const selectInput = (selectedCountry) => {
-        document.getElementById('input-box').value = selectedCountry;  // Update the input box with the selected country
-        setResults([]);  // Clear the search results once a country is selected
+        if (availableKeywords.includes(selectedCountry)) {
+            document.getElementById("input-box").value = selectedCountry;
+            setResults([]);
+        } else {
+            alert("Invalid country. Please select from the dropdown.");
+            document.getElementById("input-box").value = ""; // Clear invalid input
+        }
     };
 
     // Handles the focus event of the input field (when user clicks into it)
@@ -633,11 +624,19 @@ function Index() {
 
     // Handles the keydown event (for example, pressing Enter)
     const handleKeyDown = (e) => {
-        // Check if the 'Enter' key is pressed and there is exactly one result
-        if (e.key === 'Enter' && results.length === 1) {
-            selectInput(results[0]);  // Select the only remaining country
-            handleCountryClick(results[0]);  // Trigger the country click action
-            e.target.blur();  // Remove focus from the input field after selection
+        if (e.key === "Enter") {
+            if (results.length === 1) {
+                selectInput(results[0]); // Select the only remaining valid country
+                handleCountryClick(results[0]); // Trigger the action
+                e.target.blur(); // Remove focus from the input
+            } else if (availableKeywords.includes(e.target.value)) {
+                selectInput(e.target.value); // Handle valid input
+                handleCountryClick(e.target.value);
+                e.target.blur();
+            } else {
+                alert("Please select a valid country from the dropdown.");
+                e.target.value = ""; // Clear invalid input
+            }
         }
     };
 
@@ -688,8 +687,23 @@ function Index() {
                                 onKeyDown={handleKeyDown}
                             />
 
-                            {/* Search button with an icon */}
-                            <button className="magni-button"><i className="fa-solid fa-magnifying-glass"></i></button>
+                            {/* Search button with an icon for country */}
+                            <button
+                                className="magni-button"
+                                onClick={() => {
+                                    const input = document.getElementById("input-box").value;
+                                    if (availableKeywords.includes(input)) {
+                                        selectInput(input);
+                                        handleCountryClick(input);
+                                    } else {
+                                        alert("Please select a valid country from the dropdown.");
+                                        document.getElementById("input-box").value = "";
+                                    }
+                                }}
+                            >
+                                <i className="fa-solid fa-magnifying-glass"></i>
+                            </button>
+
                         </div>
                     </div>
 
@@ -736,10 +750,21 @@ function Index() {
                                 onBlur={() => setTimeout(() => setFilteredYearsLeft([]), 200)} // Delay hiding to allow clicking on results
                             />
 
-                            {/* Search button with an icon */}
-                            <button onClick={() => selectYearLeft(inputYearLeft)} className="magni-button">
+                            {/* Search button with an icon for year*/}
+                            <button
+                                onClick={() => {
+                                    if (availableYears.includes(inputYearLeft)) {
+                                        selectYearLeft(inputYearLeft);
+                                    } else {
+                                        alert("Please select a valid year from the dropdown.");
+                                        setInputYearLeft("");
+                                    }
+                                }}
+                                className="magni-button"
+                            >
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </button>
+
                         </div>
 
                         {/* Year Results Dropdown for the left search */}
@@ -757,31 +782,83 @@ function Index() {
 
                     </div>
 
-                    <div className='worldGrafBox'>
-                        <div className='WorldGrafBarBox'>
-                            <Bar options={chartOptions2} data={chartData2} />
-                            <p className='p_source'>Source</p>
-                            <p className='p_source_text'>IHME, Global Burden of Disease (2024)-with major processing by Our World in Data</p>
-                            <p className='p_source_text'><a href="https://creativecommons.org/licenses/by/4.0/" target='_blank' rel='noopener noreferrer'>Link to the world map license</a></p>
+                    <div className="worldGrafBox">
+                        <div className="WorldGrafBarBox">
+                            {/* Show Global Chart (chartgraf1) only when no country and year are selected */}
+                            {!(selectedCountry && selectedYear && countryRate !== null) ? (
+                                <div>
+                                    <Bar options={chartOptions2} data={chartData2} />
+                                    <p className="p_source">Source</p>
+                                    <p className="p_source_text">
+                                        IHME, Global Burden of Disease (2024)-with major processing by Our World in Data
+                                    </p>
+                                    <p className="p_source_text">
+                                        <a
+                                            href="https://creativecommons.org/licenses/by/4.0/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Link to the world map license
+                                        </a>
+                                    </p>
+                                </div>
+                            ) : (
+                                // Show Country Rate in place of the global chart
+                                <div
+                                    className="country-rate"
+                                    style={{
+                                        padding: "20px",
+                                        border: "1px solid #ccc",
+                                        color: "#373A40",
+                                        borderRadius: "8px",
+                                        backgroundColor: "rgb(242, 242, 242)",
+                                        margin: "79px 33px 0px 33px",
+                                    }}
+                                >
+                                    <h3>
+                                        {selectedCountry && selectedYear && countryRate !== null ? (
+                                            <>
+                                                The cardiovascular disease rate of {selectedCountry} in {selectedYear} is{" "}
+                                                <span style={{ color: "#E92708" }}>{countryRate}%</span>.
+                                            </>
+                                        ) : (
+                                            "Please select a valid country and year to view the rate."
+                                        )}
+                                    </h3>
+                                </div>
+                            )}
                         </div>
                     </div>
-                    {/* Chart section */}
-                    <div className="info_graf">
 
-                        {/* If chart data is available, display the chart */}
-                        {/* Chart section - Display only if minMaxRates are not set */}
-                        {/* Display Rate for Selected Country and Year */}
+                    {/* Chart Section */}
+                    <div className="info_graf">
+                        {/* Show Country-Specific Chart (chartgraf2) only when a country and year are selected */}
                         {selectedCountry && selectedYear && countryRate !== null ? (
-                            <div className="country-rate" style={{ padding: '20px', border: '1px solid #ccc', color: '#373A40', borderRadius: '8px', backgroundColor: '#f9f9f9', margin: '20px 0' }}>
-                                <h3>The cardiovascular disease rate of {selectedCountry} in {selectedYear} is <span style={{ color: '#E92708' }}> {countryRate}%</span>.</h3>
+                            <div style={{ height: "250px" }}>
+                                <Bar options={chartOptions1} data={chartData1} />
+                                <p className="p_source">Source</p>
+                                <p className="p_source_text">
+                                    IHME, Global Burden of Disease (2024)-with major processing by Our World in Data
+                                </p>
                             </div>
                         ) : (
                             <div>
-                                {/* Information if a country isnt selected */}
-                                <p className='before_graph_text'>The graph illustrates the prevalence of cardiovascular diseases over time, with the x-axis representing the years from 1990 to 2021, and the y-axis showing the percentage of the population affected by cardiovascular diseases. Over this period, the trend highlights key changes in the proportion of individuals diagnosed with heart and blood vessel-related conditions. Early in the 1990s, the percentage may have been relatively stable or increasing, potentially reflecting the influence of lifestyle factors and limited medical advancements. As the timeline progresses, there may be observable fluctuations, possibly driven by improvements in healthcare, prevention efforts, or other socio-economic factors that impacted heart health. By 2021, the graph reveals the latest figures on cardiovascular disease prevalence, showing whether rates have increased, decreased, or plateaued in recent years.</p>
+                                {/* Information if no country or year is selected */}
+                                <p className="before_graph_text">
+                                    The graph illustrates the prevalence of cardiovascular diseases over time, with the
+                                    x-axis representing the years from 1990 to 2021, and the y-axis showing the
+                                    percentage of the population affected by cardiovascular diseases. Over this period,
+                                    the trend highlights key changes in the proportion of individuals diagnosed with
+                                    heart and blood vessel-related conditions. Early in the 1990s, the percentage may
+                                    have been relatively stable or increasing, potentially reflecting the influence of
+                                    lifestyle factors and limited medical advancements. As the timeline progresses,
+                                    there may be observable fluctuations, possibly driven by improvements in healthcare,
+                                    prevention efforts, or other socio-economic factors that impacted heart health. By
+                                    2021, the graph reveals the latest figures on cardiovascular disease prevalence,
+                                    showing whether rates have increased, decreased, or plateaued in recent years.
+                                </p>
                             </div>
-                        )
-                        }
+                        )}
                     </div>
 
                 </div>
@@ -793,7 +870,7 @@ function Index() {
                         <input
                             id="input-box"
                             type="text"
-                            placeholder="Filter a year (1990-2021)"
+                            placeholder="Enter a year (1990-2021)"
                             value={inputYearRight}
                             onChange={(e) => setInputYearRight(e.target.value.trim())} // Update the right search input state
                             onKeyDown={(e) => {
@@ -813,7 +890,7 @@ function Index() {
                     {showGradientScale && (
                         <div className="gradient-legend">
                             {/* Title for the gradient legend */}
-                            <div className="legend-title">Rate Scale</div>
+                            <div className="legend-title">Rate Scale for {confirmedYearRight}</div>
 
                             {/* Gradient bar */}
                             <div className="gradient-bar"></div>

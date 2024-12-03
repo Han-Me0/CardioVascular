@@ -15,6 +15,14 @@
     box-sizing: border-box;
 }
 
+/* Disable shadows and outlines */
+input:focus,
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
 
 /* Giving the body and html element 100dvh */
 body,
@@ -125,29 +133,37 @@ header .butt {
 
 /* The screen size itself */
 .container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    display: block;
+    text-align: center;
+    /* Disable flexbox */
     background-color: var(--white);
-    height: calc(100dvh - 79px);
+    padding: 20px;
+    height: auto;
+    width: 100%;
 }
-
 
 /* The box the map is in */
 .map {
+    display: inline-block;
+    vertical-align: top;
+    width: 1030px;
     background-color: var(--lightestgray);
     border-radius: 10px;
-    height: 680px;
-    width: 1030px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: var(--lightgray), solid, 5px;
     box-shadow:
         3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
         10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
         25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
         85px 85px 106px rgba(0, 0, 0, 0.2);
+    position: relative;
+    /* Manually position within the container */
+
+    margin: 10px;
+    /* Adjust as needed */
+    height: 80vh;
+}
+
+svg {
+    padding-top: 10px;
 }
 
 /* The styling for the map */
@@ -170,25 +186,26 @@ svg path:hover {
 
 /* The box for the graph and the search bar */
 .information {
-    width: 500px;
-    height: 680px;
+    display: inline-block;
+    vertical-align: top;
+    width: 480px;
     background-color: var(--lightestgray);
     border-radius: 10px;
-    border: var(--lightgray), solid, 5px;
-    box-shadow:
-        3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
-        10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
-        25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
-        85px 85px 106px rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+    /* Standardize borders */
+    padding: 20px;
+    box-shadow: 3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07), 10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1), 25.6px 25.6px 32px rgba(0, 0, 0, 0.13), 85px 85px 106px rgba(0, 0, 0, 0.2);
     position: relative;
+    margin: 10px;
+    height: 80vh;
 }
 
-/* Styling for the search box */
+
+/* Search box responsiveness */
 .search-box {
-    width: 400px;
-    background: #fff;
-    margin: 15px auto 0;
-    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
 }
 
 .row {
@@ -232,6 +249,7 @@ svg path:hover {
     width: 400px;
     border: var(--lightgray), solid, 3px;
     border-radius: 10px;
+    border-color: transparent;
     position: absolute;
     left: 50%;
     transform: translate(-50%);
@@ -275,8 +293,9 @@ svg path:hover {
     border-radius: 7px;
     position: absolute;
     left: 50%;
-    bottom: 15px;
+    bottom: 13px;
     transform: translateX(-50%);
+    border-color: transparent;
 }
 
 /* Styling for the paraghraphs */
@@ -297,30 +316,31 @@ svg path:hover {
     text-align: center;
     font-size: 0.869rem;
     padding: 5px;
+    border-color: transparent;
 }
 
 /* World Graph */
 .worldGrafBox {
     height: 250px;
-    width: 400px;
+    width: 100%;
+    /* Ensure it takes the full width of the parent */
     border: var(--lightgray), solid, 3px;
     border-radius: 7px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
+    border-color: transparent;
 }
 
 .year-filter {
     position: absolute;
     right: 10px;
-    top: 90px;
+    top: 17px;
     border-radius: 5px;
     background-color: whitesmoke;
 
 }
 
 .year-filter input {
-    padding: 18px 10px;
+    padding: 18px 7px;
     font-size: 1rem;
     border: 1px solid #ccc;
     width: 219px;
@@ -341,10 +361,10 @@ svg path:hover {
     /* Highlight with red for maximum rate */
 }
 
+/* Gradient scale adjustments */
 .gradient-legend {
     position: absolute;
-    bottom: 20px;
-    left: 520px;
+    margin: 10px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -352,6 +372,9 @@ svg path:hover {
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    left: 20px;
+    bottom: 20px;
 }
 
 .legend-title {
@@ -394,21 +417,161 @@ svg path:hover {
 }
 
 
-/* Making the site responsive to screen size. Add more to it if you want to make it responsive to every screen size */
-@media (max-width: 1432px) {
+
+/* Mobile and tablet size adjustments*/
+@media (max-width: 1607px) {
+    .container {
+        display: block;
+        text-align: center;
+        /* Disable flexbox */
+        background-color: var(--white);
+        padding: 0px;
+        height: auto;
+        width: 100%;
+    }
+
     .map {
-        display: none;
+        width: 67%;
+        left: 20px;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .information {
+        width: 32%;
+        height: 100vh;
+        margin: 0;
+    }
+
+    canvas {
+        box-sizing: border-box;
+        display: block;
+        height: 200px;
+        width: 384px;
+    }
+
+    .gradient-legend {
+        width: 250px;
+        left: 5px;
+        bottom: 3px;
+    }
+
+    .worldGrafBox {
+        height: 223px;
+        width: 91%;
+    }
+}
+
+@media (max-width: 1903px) {
+    .country-rate {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .information {
+        width: 90%;
+        /* Take most of the width */
+        left: 5%;
+        /* Center horizontally */
+        top: 20px;
+        /* Adjust vertical positioning */
+    }
+
+    .map {
+        width: 90%;
+        /* Take most of the width */
+        left: 5%;
+        /* Center horizontally */
+        top: calc(100% + 20px);
+        /* Position below the information */
+    }
+
+    .worldGrafBox {
+        height: 250px;
+        width: 70%;
+        /* Ensure it takes the full width of the parent */
+        border: var(--lightgray), solid, 3px;
+        border-radius: 7px;
+        margin: 0 auto;
+        /* Center the section */
+    }
+}
+
+/* For screens smaller than 768px (mobile devices) */
+@media (max-width: 768px) {
+    .pageName {
+        left: 10%;
+        font-size: 18px;
+        /* Adjust horizontal positioning */
     }
 
     .tagline {
-        display: none;
+        left: 70%;
+        font-size: 12px;
+        /* Adjust horizontal positioning */
     }
 
-    .pageName {
-        color: var(--white);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .search-box {
+        width: 90%;
+        /* Full width */
+        left: 5%;
+        /* Align to the left */
+        top: 100%;
+        /* Position below the search box */
     }
+
+
+
+    .worldGrafBox {
+        height: 250px;
+        width: 80%;
+        /* Ensure it takes the full width of the parent */
+        border-radius: 7px;
+        margin: 0 auto;
+        border-color: transparent;
+    }
+
+    canvas canvas img {
+        width: 100%;
+        height: 170px;
+        /* Full width */
+        left: 0;
+        /* Align to the left */
+        top: 20px;
+        /* Adjust vertical positioning */
+        padding: 15px;
+        /* Reduce padding for smaller screens */
+    }
+
+    .information {
+        width: 100%;
+        /* Full width */
+        left: 0;
+        /* Align to the left */
+        top: 0;
+        /* Adjust vertical positioning */
+        padding: 0px;
+        /* Reduce padding for smaller screens */
+    }
+
+    .map {
+        width: 100%;
+        /* Full width */
+        left: 0;
+        /* Align to the left */
+        top: calc(100% + 20px);
+        /* Position below the information */
+        padding: 15px;
+        /* Reduce padding for smaller screens */
+        margin-top: 50px;
+    }
+
+    .gradient-legend {
+        width: 50%;
+        left: 5px;
+        bottom: 3px;
+    }
+
+
 }
