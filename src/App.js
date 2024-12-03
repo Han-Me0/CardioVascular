@@ -1,5 +1,6 @@
 import React from 'react'
 import Index from './pages/Index'
+import UK from './pages/UK';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Index/>}/>
+      <Route path='/UK' element={<UK />} />
     </Routes>
     </BrowserRouter>
   )
