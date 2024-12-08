@@ -1,0 +1,113 @@
+/* Navigation container */
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    /* Align to the right side */
+    background-color: #f9f9f9;
+    /* Light background color */
+    padding: 10px 20px;
+    /* Add padding */
+    border-bottom: 1px solid #ddd;
+    /* Optional: Add a bottom border */
+}
+
+/* Navigation list */
+.nav-list {
+    list-style: none;
+    display: flex;
+    /* Align items in a row */
+    gap: 20px;
+    /* Add space between items */
+    margin: 0;
+    /* Remove default margins */
+    padding: 0;
+    /* Remove default padding */
+}
+
+/* Navigation items */
+.nav-item {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Navigation links */
+.nav-link {
+    text-decoration: none;
+    /* Remove underline */
+    color: #000;
+    /* Black text */
+    transition: color 0.3s ease;
+    /* Smooth hover effect */
+}
+
+.nav-link:hover {
+    color: #dc5f00;
+    /* Change color on hover */
+}
+
+/* Header section */
+.navigation-header {
+    display: flex;
+    background-color: var(--lightgray);
+    justify-content: left;
+    height: 79px;
+    background-repeat: no-repeat;
+    background-size: 60px;
+    background-position: 40px;
+    background-position-y: center;
+    position: relative;
+}
+
+header .butt {
+    display: flex;
+}
+
+.btn {
+    border: none;
+    height: 79px;
+    text-align: center;
+    background-color: transparent;
+    color: var(--white);
+    width: 130px;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.active {
+    background-color: var(--darkgray);
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn:not(.active):hover {
+    color: var(--green);
+    text-shadow: 0px 0px 5px var(--green);
+}
+
+.navigation-pageName {
+    color: var(--white);
+    border: none;
+    background-color: transparent;
+    font-size: 1.5em;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.pageName:hover {
+    color: var(--green);
+}
+
+.tagline {
+    color: var(--white);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import '../styles/UKDropdown.css'; // Ensure this path is correct
 
-const HeartIllnessRates = () => {
+const HeartIllnessRates = ({ setSelectedCentre, setSelectedIllness, setIllnessRate, illnessRate }) => {
   const [data, setData] = useState([]);
   const [centres, setCentres] = useState([]);
   const [illnesses, setIllnesses] = useState([]);
-  const [selectedCentre, setSelectedCentre] = useState('');
-  const [selectedIllness, setSelectedIllness] = useState('');
-  const [illnessRate, setIllnessRate] = useState(null);
+  const [localSelectedCentre, setLocalSelectedCentre] = useState('');
+  const [localSelectedIllness, setLocalSelectedIllness] = useState('');
 
   useEffect(() => {
     // Fetch the CSV data
@@ -29,28 +28,42 @@ const HeartIllnessRates = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedCentre && selectedIllness) {
+    if (localSelectedCentre && localSelectedIllness) {
       const selectedData = data.find(
-        item => item.assessment_centre === selectedCentre && item.illness === selectedIllness
+        item =>
+          item.assessment_centre === localSelectedCentre &&
+          item.illness === localSelectedIllness
       );
-      setIllnessRate(selectedData ? selectedData.illness_rate : null);
+      const rate = selectedData ? selectedData.illness_rate : null;
+
+      // Pass the selected values to the parent component
+      setSelectedCentre(localSelectedCentre);
+      setSelectedIllness(localSelectedIllness);
+      setIllnessRate(rate);
     }
-  }, [selectedCentre, selectedIllness, data]);
+  }, [localSelectedCentre, localSelectedIllness, data, setSelectedCentre, setSelectedIllness, setIllnessRate]);
 
   const handleCentreChange = (event) => {
-    setSelectedCentre(event.target.value);
+    const centre = event.target.value;
+    setLocalSelectedCentre(centre); // Update local state
   };
 
   const handleIllnessChange = (event) => {
-    setSelectedIllness(event.target.value);
+    const illness = event.target.value;
+    setLocalSelectedIllness(illness); // Update local state
   };
 
   return (
     <div className="heart-illness-rates">
-      <h1 className="title">Heart Illness Rates by Assessment Centre</h1>
+      <h1 className="title">UK- Cardio Vascular Rates by City</h1>
       <div className="dropdown-container">
         <label htmlFor="centre" className="label">Assessment Centre: </label>
-        <select id="centre" className="dropdown" value={selectedCentre} onChange={handleCentreChange}>
+        <select
+          id="centre"
+          className="dropdown"
+          value={localSelectedCentre}
+          onChange={handleCentreChange}
+        >
           <option value="">Select a centre</option>
           {centres.map((centre, index) => (
             <option key={`${centre}-${index}`} value={centre}>{centre}</option>
@@ -59,16 +72,21 @@ const HeartIllnessRates = () => {
       </div>
       <div className="dropdown-container">
         <label htmlFor="illness" className="label">Illness: </label>
-        <select id="illness" className="dropdown" value={selectedIllness} onChange={handleIllnessChange}>
+        <select
+          id="illness"
+          className="dropdown"
+          value={localSelectedIllness}
+          onChange={handleIllnessChange}
+        >
           <option value="">Select an illness</option>
           {illnesses.map((illness, index) => (
             <option key={`${illness}-${index}`} value={illness}>{illness}</option>
           ))}
         </select>
       </div>
-      {illnessRate !== null && (
+      {localSelectedCentre && localSelectedIllness && (
         <div className="illness-rate">
-          The cardiovascular disease rate in {selectedCentre} in {selectedIllness} is <span>{illnessRate}%</span>
+          The cardiovascular disease rate in {localSelectedCentre} for {localSelectedIllness} is <span>{illnessRate || 'N/A'}%</span>.
         </div>
       )}
     </div>

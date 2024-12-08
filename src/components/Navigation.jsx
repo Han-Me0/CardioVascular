@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
+import '../styles/Navigation.css'; // Import CSS for styling
 
 function Navigation() {
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to='/'>World Map</Link>
+        <nav className="navigation">
+            <ul className="nav-list">
+                <li className="nav-item">
+                    <Link to="/" className="nav-link">World Map</Link>
                 </li>
-                <li>
-                    <Link to='/uk-map'>UK Map</Link>
+                <li className="nav-item">
+                    <Link to="/uk-map" className="nav-link">UK Map</Link>
                 </li>
             </ul>
         </nav>
