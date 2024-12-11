@@ -46,7 +46,9 @@ const HeartIllnessRates = ({ setSelectedCentre, setSelectedIllness, setIllnessRa
   const handleCentreChange = (event) => {
     const centre = event.target.value;
     setLocalSelectedCentre(centre); // Update local state
+    setSelectedCentre(centre); // Pass to parent component for map updates
   };
+
 
   const handleIllnessChange = (event) => {
     const illness = event.target.value;
