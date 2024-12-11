@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
-import '../styles/UKDropdown.css'; // Ensure this path is correct
+import '../styles/UKDropdown.css'; 
 
 const HeartIllnessRates = ({ setSelectedCentre, setSelectedIllness, setIllnessRate, illnessRate }) => {
   const [data, setData] = useState([]);
@@ -12,7 +12,7 @@ const HeartIllnessRates = ({ setSelectedCentre, setSelectedIllness, setIllnessRa
   useEffect(() => {
     // Fetch the CSV data
     const fetchData = async () => {
-      const response = await fetch('./data/heart_illness_rates_by_city.csv');
+      const response = await fetch('./data/heart_disease_rates.csv');
       const text = await response.text();
       Papa.parse(text, {
         header: true,
@@ -59,14 +59,14 @@ const HeartIllnessRates = ({ setSelectedCentre, setSelectedIllness, setIllnessRa
     <div className="heart-illness-rates">
       <h1 className="title">UK- Cardio Vascular Rates by City</h1>
       <div className="dropdown-container">
-        <label htmlFor="centre" className="label">Assessment Centre: </label>
+        <label htmlFor="centre" className="label">City: </label>
         <select
           id="centre"
           className="dropdown"
           value={localSelectedCentre}
           onChange={handleCentreChange}
         >
-          <option value="">Select a centre</option>
+          <option value="">Select a city</option>
           {centres.map((centre, index) => (
             <option key={`${centre}-${index}`} value={centre}>{centre}</option>
           ))}

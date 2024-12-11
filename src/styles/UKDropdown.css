@@ -1,10 +1,8 @@
 .uk-page {
   position: relative;
-  /* Set a reference point for positioning child elements */
   height: 100vh;
-  /* Full viewport height */
   width: 100vw;
-  /* Full viewport width */
+  background-color: #f0f4f8;
 }
 
 .map-section {
@@ -86,68 +84,46 @@
   position: absolute;
   right: 16px;
   top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
-  pointer-events: none;
+  width: 12px;
+  height: 12px;
 }
-
-.dropdown:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-}
-
 
 .illness-rate {
-  background-color: white;
-  padding: 16px 20px;
+  background-color: #ebf8ff;
+  padding: 20px;
   border-radius: 8px;
   margin-top: 24px;
   text-align: center;
   font-size: 16px;
-  color: #1F2937;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: #2b6cb0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .illness-rate span {
-  color: #EF4444;
-  font-weight: 500;
+  color: #e53e3e;
+  font-weight: 700;
 }
 
-.dropdown::placeholder {
-  color: #6B7280;
-}
-
-/* Adjust layout for smaller screens */
 @media (max-width: 850px) {
   .uk-page {
+    display: flex;
     flex-direction: column;
-    /* Stack items vertically */
     align-items: center;
-    /* Center align elements */
   }
 
   .heart-illness-rates {
     position: relative;
-    /* Remove absolute positioning */
     top: auto;
     left: auto;
-    z-index: 1;
-    /* Same layer as the map */
-    width: 100%;
-    /* Full width */
-    margin-bottom: 20px;
-    /* Space below the dropdown */
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
   }
 
   .map-section {
     width: 100%;
-    /* Full width for the map */
     height: 500px;
-    /* Adjust height for smaller screens */
     order: 2;
-    /* Ensure map appears below the dropdown */
   }
 }
 
@@ -157,6 +133,14 @@
   }
 
   .navigation-pageName {
-    margin-left: 50px;
+    margin-left: 20px;
+  }
+
+  .heart-illness-rates {
+    padding: 20px;
+  }
+
+  .heart-illness-rates h1 {
+    font-size: 20px;
   }
 }
