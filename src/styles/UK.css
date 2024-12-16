@@ -1,0 +1,122 @@
+:root {
+  --bg-color: #e6e6e6;
+  --card-bg: #f2f2f2;
+  --text-dark: #333333;
+  --map-color: #4b5563;
+  --shadow: rgba(0, 0, 0, 0.05);
+}
+
+.uk-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 24px;
+  padding: 24px;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+}
+
+.uk-header {
+  grid-column: 1 / -1;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.uk-header h1 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.uk-header p {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.uk-controls {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.uk-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.uk-dropdown-container label {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.uk-dropdown {
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.uk-illness-rate {
+  background-color: white;
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+.uk-illness-rate h3 {
+  display: none;
+}
+
+.uk-illness-rate p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.uk-illness-rate p span {
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+.uk-map-section {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.leaflet-container {
+  height: calc(100vh - 140px) !important;
+  width: 100%;
+  border-radius: 16px;
+}
+
+@media (max-width: 1024px) {
+  .uk-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .uk-map-section {
+    height: 50vh;
+  }
+}

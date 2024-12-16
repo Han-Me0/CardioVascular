@@ -9,7 +9,7 @@ function Navigation() {
                     <Link to="/" className="nav-link">World Map</Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/uk-map" className="nav-link">UK Map</Link>
+                    <Link to="/uk" className="nav-link">UK Map</Link>
                 </li>
             </ul>
         </nav>

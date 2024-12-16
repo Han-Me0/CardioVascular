@@ -3,51 +3,41 @@
   height: 100vh;
   width: 100vw;
   background-color: #f0f4f8;
+  font-family: 'Arial', sans-serif;
 }
 
 .map-section {
   height: 80vh;
   width: 100%;
   background-color: #f9f9f9;
-  /* Match the light background of the map */
-  border-radius: 10px;
-  box-shadow: 3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
-    10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
-    25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
-    85px 85px 106px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  /* Ensure map stays within bounds */
+  transition: all 0.3s ease;
 }
 
-
-.map-section {
-  height: 80vh;
-  width: 100%;
-  background-color: #f9f9f9;
-  /* Match the light background of the map */
-  border-radius: 10px;
-  box-shadow: 3.8px 3.8px 4.8px rgba(0, 0, 0, 0.07),
-    10.6px 10.6px 13.3px rgba(0, 0, 0, 0.1),
-    25.6px 25.6px 32px rgba(0, 0, 0, 0.13),
-    85px 85px 106px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  /* Ensure map stays within bounds */
-}
-
-/* Align dropdown and map */
 .heart-illness-rates {
   position: absolute;
-  top: 20px;
+  top: 100px;
   left: 20px;
   z-index: 1000;
-  background-color: #ffffff;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Dropdown styling */
+
+
+.dropdown-container {
+  margin-bottom: 15px;
+  position: relative;
+}
+
 .dropdown {
   width: 100%;
   padding: 12px;
@@ -58,34 +48,23 @@
   border-radius: 8px;
   appearance: none;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Rate display styling */
-.illness-rate {
-  margin-top: 16px;
-  background-color: white;
-  padding: 16px;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 16px;
-  color: #1f2937;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-
-
-
-.dropdown-container {
-  margin: 23px;
+.dropdown:hover, .dropdown:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }
 
 .dropdown-container::after {
-  content: '';
+  content: '\25BC';
   position: absolute;
   right: 16px;
   top: 50%;
-  width: 12px;
-  height: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #4a90e2;
 }
 
 .illness-rate {
@@ -96,13 +75,20 @@
   text-align: center;
   font-size: 16px;
   color: #2b6cb0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.illness-rate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .illness-rate span {
   color: #e53e3e;
   font-weight: 700;
 }
+
 
 @media (max-width: 850px) {
   .uk-page {
@@ -137,10 +123,14 @@
   }
 
   .heart-illness-rates {
-    padding: 20px;
+    padding: 15px;
   }
 
   .heart-illness-rates h1 {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .dropdown, .illness-rate {
+    font-size: 14px;
   }
 }

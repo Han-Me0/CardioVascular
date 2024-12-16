@@ -6,6 +6,7 @@ import HeartIllnessRates from './components/DropdownUK';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
 import About from './pages/About'; 
+import UK from './pages/UK'; 
 
 function App() {
   const [selectedCentre, setSelectedCentre] = useState('');
@@ -43,6 +44,7 @@ function App() {
             }
           />
           <Route path="/about" element={<About />} /> {/* Add route to About page */}
+          <Route path="/uk" element={<UK />} /> {/* Add route to About page */}
         </Routes>
       </div>
     </BrowserRouter>
