@@ -5,8 +5,10 @@ import UKMap from './components/UKMap';
 import HeartIllnessRates from './components/DropdownUK';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
-import About from './pages/About'; 
-import UK from './pages/UK'; 
+import About from './pages/About';
+import UK from './pages/UK';
+import Footer from './components/Footer';
+import Contact from './components/Contact';
 
 function App() {
   const [selectedCentre, setSelectedCentre] = useState('');
@@ -45,7 +47,9 @@ function App() {
           />
           <Route path="/about" element={<About />} /> {/* Add route to About page */}
           <Route path="/uk" element={<UK />} /> {/* Add route to About page */}
+          <Route path="/contact" element={<Contact />} /> {/* Add Contact route */}
         </Routes>
+        <Footer /> {/* Place footer outside routes so it's always visible */}
       </div>
     </BrowserRouter>
   );

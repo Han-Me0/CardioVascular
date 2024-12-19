@@ -1,0 +1,57 @@
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 0 auto 430px auto;
+    background-color: #f4f4f4;
+    width: calc(100vw - 100px);
+    padding-bottom: 40px;
+    gap: 15px;
+}
+
+.contact-container {
+    text-align: left;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    display: grid;
+    grid-column: span 5;
+}
+
+.contact-container h2 {
+    text-align: center;
+    grid-column: span 5;
+    font-size: 2.7em;
+    line-height: 1.1;
+    margin: 20px 0 20px 0;
+}
+
+.contact-container h3 {
+    text-align: center;
+    grid-column: span 5;
+    font-size: 2em;
+    line-height: 1.1;
+    margin: 20px 0 20px 0;
+}
+
+.contact-container p {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: Inria Sans;
+    width: calc(100vw - 100px);
+    grid-column: span 5;
+    font-size: 1.2em;
+}
+
+.contact-container i {
+    margin-right: 10px;
+    color: none;
+    /* Adjust the color to your theme */
+}
+
+.contact-container a {
+    text-decoration: none;
+    color: #0077b6;
+}
+
+.contact-container a:hover {
+    text-decoration: underline;
+}

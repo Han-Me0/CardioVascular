@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Papa from 'papaparse';
+import { scaleLinear } from 'd3-scale'; // Import scaleLinear for gradient colors
 import Navigation from '../components/Navigation';
 import '../styles/UK.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import '../styles/Footer.css';
 
 function UK() {
   const [data, setData] = useState([]);
@@ -63,12 +67,15 @@ function UK() {
     }
   };
 
+  // Define a color scale for illness rates
+  const colorScale = scaleLinear()
+    .domain([0, Math.max(...data.map(city => city.illness_rate || 0))]) // based on the range of illness rates
+    .range(['#ffffcc', '#800026']); // Gradient from yellow (low) to red (high)
 
   return (
     <div className="uk-container">
       <div className="uk-header">
-        <h1>Cardiovascular Disease Rates Across the UK</h1>
-        <p>Explore the heart disease rates for various cities and illness types across the UK. Select a city and illness type to get detailed insights.</p>
+        <Header />
       </div>
 
       <div className="uk-controls">
@@ -119,7 +126,9 @@ function UK() {
         {selectedIllness && selectedCentre === 'all' && (
           <div className="uk-illness-rate">
             <h3>Rates for {selectedIllness}</h3>
-            <p>All rates are shown on the map for the selected illness.</p>
+            <p>All rates are shown on the map for the selected illness.
+              Click on the cities to view the rates.
+            </p>
           </div>
         )}
       </div>
@@ -140,39 +149,54 @@ function UK() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {data
-  .filter(
-    (city) =>
-      (selectedCentre === 'all' || city.assessment_centre === selectedCentre) &&
-      !isNaN(city.latitude) &&
-      !isNaN(city.longitude)
-  )
-  .map((city, index) => {
-    const illnessData = data.find(
-      (item) =>
-        item.assessment_centre === city.assessment_centre && item.illness === selectedIllness
-    );
-    const illnessRate = illnessData ? illnessData.illness_rate.toFixed(2) : 'N/A';
-    return (
-      <CircleMarker
-        key={`${city.assessment_centre}-${index}`}
-        center={[city.latitude, city.longitude]}
-        radius={8}
-        fillColor={city.assessment_centre === selectedCentre ? '#FF7F50' : '#4682B4'}
-        color="#000"
-        weight={1}
-        opacity={1}
-        fillOpacity={0.8}
-      >
-        <Popup>
-          <strong>{city.assessment_centre}</strong>
-          <br />
-          {selectedIllness ? `${selectedIllness}: ${illnessRate}%` : 'Select an illness'}
-        </Popup>
-      </CircleMarker>
-    );
-  })}
+            .filter(
+              (city) =>
+                (selectedCentre === 'all' || city.assessment_centre === selectedCentre) &&
+                !isNaN(city.latitude) &&
+                !isNaN(city.longitude)
+            )
+            .map((city, index) => {
+              const illnessData = data.find(
+                (item) =>
+                  item.assessment_centre === city.assessment_centre && item.illness === selectedIllness
+              );
+              const illnessRate = illnessData ? illnessData.illness_rate : null;
+
+              // Assign fill color based on illness rate
+              const fillColor =
+                selectedCentre === 'all' && selectedIllness
+                  ? colorScale(illnessRate || 0) // Use color scale for all cities
+                  : city.assessment_centre === selectedCentre
+                    ? '#FF7F50' // Highlight selected city
+                    : '#4682B4'; // Default color for other cities
+
+              console.log(`FillColor for ${city.assessment_centre}:`, fillColor); // Debug log
+
+              return (
+                <CircleMarker
+                  key={`${city.assessment_centre}-${index}`}
+                  center={[city.latitude, city.longitude]}
+                  radius={8}
+                  fillColor={fillColor}
+                  color="#000"
+                  weight={1}
+                  opacity={1}
+                  fillOpacity={0.9}
+                >
+                  <Popup>
+                    <strong>{city.assessment_centre}</strong>
+                    <br />
+                    {selectedIllness ? `${selectedIllness}: ${illnessRate?.toFixed(2) || 'N/A'}%` : 'Select an illness'}
+                  </Popup>
+                </CircleMarker>
+              );
+            })}
         </MapContainer>
       </div>
+
+      {/*<div className="uk-header">
+        <Footer />
+      </div>*/}
     </div>
   );
 }

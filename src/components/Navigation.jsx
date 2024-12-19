@@ -11,6 +11,9 @@ function Navigation() {
                 <li className="nav-item">
                     <Link to="/uk" className="nav-link">UK Map</Link>
                 </li>
+                <li className="nav-item">
+                    <Link to="/about" className="nav-link">About</Link>
+                </li>
             </ul>
         </nav>
     );
