@@ -17,7 +17,7 @@ function About() {
     <div className="about-wrapper">
       <div className="about-hero">
         <div className="hero-content">
-          <h1>Healthmap Guide</h1>
+          <h1>curAIHeart</h1>
           <p>Understanding Common Cardiovascular Issues</p>
         </div>
         <div className="hero-pattern"></div>
@@ -46,7 +46,7 @@ function About() {
           <h3>Our Data Sources</h3>
           <p>Information provided on this platform is sourced from:</p>
           <ul>
-            <li>Biobank</li>
+            <li>UK Biobank - UK Biobank</li>
 
           </ul>
         </div>
