@@ -651,7 +651,7 @@ function Index() {
                 <button className='pageName' type='button' onClick={refresh}>CardioVascularView</button>
                 <div className="butt">
                     {/* The buttons below are for navigation; currently, only the "Diseases" button is active */}
-                    {/*<button className="btn btn_main">Main Menu</button>*/}
+                    {/*<button className="btn btn_main">Main Menu</button>
                     {/*<button className="btn btn_dis active" disabled>Diseases</button>*/}
                     {/*<button className="btn btn_test">test</button>*/}
                 </div>

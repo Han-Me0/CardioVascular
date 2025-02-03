@@ -1,10 +1,10 @@
-.uk-container {
+.usa-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.uk-content-wrapper {
+.usa-content-wrapper {
   flex: 1;
   display: grid;
   grid-template-columns: 350px 1fr;
@@ -13,18 +13,11 @@
   background-color: #f8f9fa;
 }
 
-.uk-controls-section {
-  display: flex;
-  flex-direction: column;
-}
-
 .controls-card {
-  flex: 1;
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  overflow-y: auto;
 }
 
 .dropdown-group {
@@ -88,15 +81,16 @@
   color: #7f8c8d;
 }
 
+
+
 .map-section {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  height: 100%;
 }
 
 .leaflet-container {
-  height: 100% !important;
+  height: 70vh;
   width: 100%;
 }
 
@@ -123,7 +117,7 @@
 }
 
 @media (max-width: 768px) {
-  .uk-content-wrapper {
+  .usa-content-wrapper {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
@@ -133,6 +127,6 @@
   }
   
   .leaflet-container {
-    height: 50vh !important;
+    height: 50vh;
   }
 }

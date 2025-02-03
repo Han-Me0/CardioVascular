@@ -9,11 +9,9 @@ import About from './pages/About';
 import UK from './pages/UK';
 import Footer from './components/Footer';
 import Contact from './components/Contact';
+import USA from './pages/USA';
 
 function App() {
-  const [selectedCentre, setSelectedCentre] = useState('');
-  const [selectedIllness, setSelectedIllness] = useState('');
-  const [illnessRate, setIllnessRate] = useState(null);
 
   return (
     <BrowserRouter>
@@ -23,31 +21,10 @@ function App() {
         {/* Define routes */}
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route
-            path="/uk-map"
-            element={
-              <div className="uk-page">
-                <Header />
-                <HeartIllnessRates
-                  setSelectedCentre={setSelectedCentre}
-                  setSelectedIllness={setSelectedIllness}
-                  setIllnessRate={setIllnessRate}
-                  illnessRate={illnessRate}
-                />
-
-                <div className="map-section">
-                  <UKMap
-                    selectedCentre={selectedCentre}
-                    selectedIllness={selectedIllness}
-                    illnessRate={illnessRate}
-                  />
-                </div>
-              </div>
-            }
-          />
           <Route path="/about" element={<About />} /> {/* Add route to About page */}
           <Route path="/uk" element={<UK />} /> {/* Add route to About page */}
           <Route path="/contact" element={<Contact />} /> {/* Add Contact route */}
+          <Route path="/usa" element={<USA />} /> {/* Add Contact route */}
         </Routes>
         <Footer /> {/* Place footer outside routes so it's always visible */}
       </div>
