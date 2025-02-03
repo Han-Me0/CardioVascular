@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/About.css';
+import Header from '../components/Header';
 
 function About() {
   const heartConditions = [
@@ -14,44 +15,44 @@ function About() {
   ];
 
   return (
-    <div className="about-wrapper">
-      <div className="about-hero">
-        <div className="hero-content">
-          <h1>curAIHeart</h1>
-          <p>Understanding Common Cardiovascular Issues</p>
+    <>
+      <Header />
+      <div className="about-wrapper">
+        <div className="about-hero">
+          <div className="hero-content">
+            <h1>curAIHeart</h1>
+            <p>Understanding Common Cardiovascular Issues</p>
+          </div>
+          <div className="hero-pattern"></div>
         </div>
-        <div className="hero-pattern"></div>
-      </div>
-      
-      <div className="main-content">
-        <h2>What We Cover</h2>
-        <div className="conditions-grid">
-          {heartConditions.map((condition, index) => (
-            <div key={index} className="condition-card">
-              <div className="card-icon">
-                <span>{String(index + 1).padStart(2, '0')}</span>
+        
+        <div className="main-content">
+          <h2>What We Cover</h2>
+          <div className="conditions-grid">
+            {heartConditions.map((condition, index) => (
+              <div key={index} className="condition-card">
+                <div className="card-icon">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                </div>
+                <div className="card-content">
+                  <h3>{condition.name}</h3>
+                  <p>{condition.description}</p>
+                </div>
               </div>
-              <div className="card-content">
-                <h3>{condition.name}</h3>
-                <p>{condition.description}</p>
-              </div>
-          {/* <div className="card-footer">
-             <button className="read-more">Read More →</button>
-            </div> */}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="data-source-card">
-          <h3>Our Data Sources</h3>
-          <p>Information provided on this platform is sourced from:</p>
-          <ul>
-            <li>UK Biobank - UK Biobank</li>
-
-          </ul>
+          <div className="data-source-card">
+            <h3>Data Sources</h3>
+            <p>Information provided on this platform is sourced from:</p>
+            <ul>
+              <li>UK Biobank - UK Biobank</li>
+              <li>The Behavioral Risk Factor Surveillance System (BRFSS)</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

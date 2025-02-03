@@ -3,6 +3,10 @@ import WordCSV from '../CSV/World.csv';
 // Importing React library to create React components
 import React from 'react';
 
+import { NavLink } from 'react-router-dom';
+
+import '../styles/Navigation.css';
+
 // Importing hooks from React for side effects and component state management
 import { useEffect, useState } from 'react';
 
@@ -646,17 +650,46 @@ function Index() {
 
     return (
         <div>
-            <header>
-                {/* Page heading */}
-                <button className='pageName' type='button' onClick={refresh}>CardioVascularView</button>
-                <div className="butt">
-                    {/* The buttons below are for navigation; currently, only the "Diseases" button is active */}
-                    {/*<button className="btn btn_main">Main Menu</button>
-                    {/*<button className="btn btn_dis active" disabled>Diseases</button>*/}
-                    {/*<button className="btn btn_test">test</button>*/}
-                </div>
-                <h2 className='tagline'>Prevalence Rate of Cardiovascular Diseases Global</h2>
-            </header>
+<header className="header">
+            <div className="logo-container">
+                <button className="logo-text" type="button" onClick={refresh}>
+                    CardioVascularView
+                </button>
+            </div>
+            
+            <div className="title-container">
+                <h2 className="main-title">
+                    Prevalence Rate of Cardiovascular Diseases Global
+                </h2>
+            </div>
+
+            <div className="menu-container">
+                <nav className="menu">
+                    <ul className="menu-list">
+                        <li className="menu-item">
+                            <NavLink to="/" className="menu-link" activeClassName="active">
+                                World Map
+                            </NavLink>
+                        </li>
+                        <li className="menu-item">
+                            <NavLink to="/uk" className="menu-link" activeClassName="active">
+                                UK Map
+                            </NavLink>
+                        </li>
+                        <li className="menu-item">
+                            <NavLink to="/usa" className="menu-link" activeClassName="active">
+                                USA Map
+                            </NavLink>
+                        </li>
+                        <li className="menu-item">
+                            <NavLink to="/about" className="menu-link" activeClassName="active">
+                                About
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
             {/* Hidden section for testing content */}
             <section className="testing" style={{ display: "none" }}>

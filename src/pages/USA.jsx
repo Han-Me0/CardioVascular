@@ -33,7 +33,7 @@ function USA() {
             Longitude: parseFloat(item.Longitude),
           }));
           setData(parsedData);
-          setStates([...new Set(parsedData.map((item) => item.State))]);
+          setStates(['all', ...new Set(parsedData.map((item) => item.State))]);
           setConditions(['High Blood Pressure', 'Heart Attack', 'Coronary Heart Disease', 'Stroke', 'High Cholesterol', 'Heart Disease (MI or CHD)']);
         },
       });
@@ -54,13 +54,26 @@ function USA() {
   };
 
   const updateConditionRate = (state, condition) => {
-    if (state === 'all' || !condition) {
+    if (state === 'all' && condition) {
+      const validEntries = data.filter(item => 
+        !isNaN(parseFloat(item[condition]))
+      );
+      
+      if (validEntries.length === 0) {
+        setConditionRate(null);
+        return;
+      }
+      
+      const total = validEntries.reduce((sum, item) => 
+        sum + parseFloat(item[condition]), 0
+      );
+      setConditionRate(total / validEntries.length);
+    } else if (state && condition) {
+      const selectedData = data.find((item) => item.State === state);
+      setConditionRate(selectedData ? parseFloat(selectedData[condition]) : null);
+    } else {
       setConditionRate(null);
-      return;
     }
-    
-    const selectedData = data.find((item) => item.State === state);
-    setConditionRate(selectedData ? parseFloat(selectedData[condition]) : null);
   };
 
   const colorScale = scaleLinear()
@@ -84,10 +97,9 @@ function USA() {
                   value={selectedState}
                   onChange={handleStateChange}
                 >
-                  <option value="all">All States</option>
                   {states.map((state, index) => (
                     <option key={`${state}-${index}`} value={state}>
-                      {state}
+                      {state === 'all' ? 'All States' : state}
                     </option>
                   ))}
                 </select>
@@ -124,8 +136,6 @@ function USA() {
                       <span className="rate-value">{conditionRate.toFixed(1)}</span>
                       <span className="rate-unit">% prevalence</span>
                     </>
-                  ) : selectedState === 'all' ? (
-                    <span className="rate-na">Select a state to view specific data</span>
                   ) : (
                     <span className="rate-na">Data not available</span>
                   )}
@@ -133,8 +143,6 @@ function USA() {
               </div>
             )}
           </div>
-
-         
         </div>
 
         <div className="map-section">
@@ -167,7 +175,7 @@ function USA() {
                     center={[state.Latitude, state.Longitude]}
                     radius={isSelected ? 12 : 8}
                     fillColor={
-                      selectedState === 'all' && selectedCondition
+                      selectedCondition
                         ? colorScale(conditionRate || 0)
                         : isSelected
                         ? '#ff4444'
@@ -195,8 +203,6 @@ function USA() {
           </MapContainer>
         </div>
       </div>
-
-      
     </div>
   );
 }

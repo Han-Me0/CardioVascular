@@ -93,7 +93,7 @@ function UK() {
             <h2>Explore Heart Condition Rates</h2>
             <div className="dropdown-group">
               <div className="dropdown-container">
-                <label htmlFor="centre">Select Centre:</label>
+                <label htmlFor="centre">Select City:</label>
                 <select
                   id="centre"
                   className="styled-dropdown"
@@ -102,7 +102,7 @@ function UK() {
                 >
                   {centres.map((centre, index) => (
                     <option key={`${centre}-${index}`} value={centre}>
-                      {centre === 'all' ? 'All Centres' : centre}
+                      {centre === 'all' ? 'All Cities' : centre}
                     </option>
                   ))}
                 </select>
@@ -116,7 +116,7 @@ function UK() {
                   value={selectedIllness}
                   onChange={handleIllnessChange}
                 >
-                  <option value="">Select Illness</option>
+                  <option value="">Select Condition</option>
                   {illnesses.map((illness, index) => (
                     <option key={`${illness}-${index}`} value={illness}>
                       {illness}

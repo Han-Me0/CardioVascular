@@ -17,7 +17,7 @@ function App() {
     <BrowserRouter>
       <div>
         {/* Include the Navigation component here so it appears on all pages */}
-        <Navigation />
+        
         {/* Define routes */}
         <Routes>
           <Route path="/" element={<Index />} />
