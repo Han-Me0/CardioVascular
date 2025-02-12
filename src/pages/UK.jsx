@@ -8,18 +8,20 @@ import Footer from '../components/Footer';
 import '../styles/UK.css';
 
 function UK() {
-  const [data, setData] = useState([]);
-  const [centres, setCentres] = useState([]);
-  const [illnesses, setIllnesses] = useState([]);
-  const [selectedCentre, setSelectedCentre] = useState('all');
-  const [selectedIllness, setSelectedIllness] = useState('');
-  const [illnessRate, setIllnessRate] = useState(null);
+  const [data, setData] = useState([]); // State for storing parsed data
+  const [centres, setCentres] = useState([]); // State for storing unique assessment centres
+  const [illnesses, setIllnesses] = useState([]); // State for storing unique illnesses
+  const [selectedCentre, setSelectedCentre] = useState('all'); // State for selected centre
+  const [selectedIllness, setSelectedIllness] = useState(''); // State for selected illness
+  const [illnessRate, setIllnessRate] = useState(null); // State for the calculated illness rate
 
+  // Bounds for the UK map
   const ukBounds = [
     [49.8, -8.0],
     [60.9, 2.0],
   ];
 
+  // Fetch and parse the CSV data on component mount
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch('./data/heart_disease_rates.csv');
@@ -29,49 +31,54 @@ function UK() {
         complete: (result) => {
           const parsedData = result.data.map((item) => ({
             ...item,
-            latitude: parseFloat(item.latitude),
-            longitude: parseFloat(item.longitude),
-            illness_rate: parseFloat(item.illness_rate),
+            latitude: parseFloat(item.latitude), // Parse latitude as a float
+            longitude: parseFloat(item.longitude), // Parse longitude as a float
+            illness_rate: parseFloat(item.illness_rate), // Parse illness rate as a float
           }));
-          setData(parsedData);
-          setCentres(['all', ...new Set(parsedData.map((item) => item.assessment_centre))]);
-          setIllnesses([...new Set(parsedData.map((item) => item.illness))]);
+          setData(parsedData); // Store parsed data in state
+          setCentres(['all', ...new Set(parsedData.map((item) => item.assessment_centre))]); // Extract unique centres
+          setIllnesses([...new Set(parsedData.map((item) => item.illness))]); // Extract unique illnesses
         },
       });
     };
     fetchData();
   }, []);
 
+  // Handle centre selection change
   const handleCentreChange = (event) => {
     const centre = event.target.value;
     setSelectedCentre(centre);
     updateIllnessRate(centre, selectedIllness);
   };
 
+  // Handle illness selection change
   const handleIllnessChange = (event) => {
     const illness = event.target.value;
     setSelectedIllness(illness);
     updateIllnessRate(selectedCentre, illness);
   };
 
+  // Update the calculated illness rate based on selected centre and illness
   const updateIllnessRate = (centre, illness) => {
     if (centre === 'all' && illness) {
-      const validEntries = data.filter(item => 
-        item.illness === illness && 
-        !isNaN(item.illness_rate)
+      const validEntries = data.filter(
+        (item) =>
+          item.illness === illness && 
+          !isNaN(item.illness_rate)
       );
-      
+
       if (validEntries.length === 0) {
         setIllnessRate(null);
         return;
       }
-      
+
       const total = validEntries.reduce((sum, item) => sum + item.illness_rate, 0);
       setIllnessRate(total / validEntries.length);
     } else if (centre && illness) {
-      const selectedData = data.find(item => 
-        item.assessment_centre === centre && 
-        item.illness === illness
+      const selectedData = data.find(
+        (item) =>
+          item.assessment_centre === centre && 
+          item.illness === illness
       );
       setIllnessRate(selectedData ? selectedData.illness_rate : null);
     } else {
@@ -79,19 +86,23 @@ function UK() {
     }
   };
 
+  // Define a color scale for CircleMarker based on illness rates
   const colorScale = scaleLinear()
-    .domain([0, 60])
-    .range(['#ffefd5', '#8b0000']);
+    .domain([0, 60]) // Scale range from 0% to 60%
+    .range(['#ffefd5', '#8b0000']); // Light peach to dark red
 
   return (
     <div className="uk-container">
+      {/* Header component */}
       <Header />
 
       <div className="uk-content-wrapper">
+        {/* Controls Section */}
         <div className="uk-controls-section">
           <div className="controls-card">
             <h2>Explore Heart Condition Rates</h2>
             <div className="dropdown-group">
+              {/* Dropdown for selecting city */}
               <div className="dropdown-container">
                 <label htmlFor="centre">Select City:</label>
                 <select
@@ -108,6 +119,7 @@ function UK() {
                 </select>
               </div>
 
+              {/* Dropdown for selecting condition */}
               <div className="dropdown-container">
                 <label htmlFor="illness">Select Condition:</label>
                 <select
@@ -126,6 +138,7 @@ function UK() {
               </div>
             </div>
 
+            {/* Stats Card */}
             {selectedIllness && (
               <div className="stats-card">
                 <h3>
@@ -150,26 +163,31 @@ function UK() {
           </div>
         </div>
 
+        {/* Map Section */}
         <div className="map-section">
           <MapContainer
-            center={[54.5, -2.5]}
-            zoom={6}
+            center={[54.5, -2.5]} // Centered over the UK
+            zoom={6} // Initial zoom level
             className="leaflet-container"
-            bounds={ukBounds}
-            maxBounds={ukBounds}
+            bounds={ukBounds} // Set bounds to the UK area
+            maxBounds={ukBounds} // Prevent panning outside the UK bounds
             maxBoundsViscosity={1.0}
-            minZoom={5}
+            minZoom={5} // Minimum zoom level allowed
           >
+            {/* Tile layer for the map */}
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
+            
+            {/* Map markers */}
             {data
-              .filter((centre) => 
-                (selectedCentre === 'all' || centre.assessment_centre === selectedCentre) &&
-                !isNaN(centre.latitude) &&
-                !isNaN(centre.longitude) &&
-                (selectedIllness === '' || centre.illness === selectedIllness)
+              .filter(
+                (centre) =>
+                  (selectedCentre === 'all' || centre.assessment_centre === selectedCentre) &&
+                  !isNaN(centre.latitude) &&
+                  !isNaN(centre.longitude) &&
+                  (selectedIllness === '' || centre.illness === selectedIllness)
               )
               .map((centre, index) => {
                 const isSelected = centre.assessment_centre === selectedCentre;
@@ -192,6 +210,7 @@ function UK() {
                     opacity={0.8}
                     fillOpacity={0.9}
                   >
+                    {/* Popup for marker */}
                     <Popup className="map-popup">
                       <h4>{centre.assessment_centre}</h4>
                       {selectedIllness && (

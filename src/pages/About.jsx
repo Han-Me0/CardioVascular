@@ -11,7 +11,12 @@ function About() {
     { name: "Heart Failure", description: "Heart's inability to pump blood effectively." },
     { name: "Valve Problems", description: "Issues with heart valves affecting blood flow." },
     { name: "Hypertension", description: "High blood pressure increasing heart disease risk." },
-    { name: "Irregular Heartbeat", description: "Heart rhythm that's too fast, too slow, or erratic." }
+    { name: "Irregular Heartbeat", description: "Heart rhythm that's too fast, too slow, or erratic." },
+    { name: "High Blood Pressure", description: "A condition where the force of the blood against artery walls is too high." },
+    { name: "Coronary Heart Disease", description: "Narrowed coronary arteries reducing oxygen supply to the heart." },
+    { name: "Stroke", description: "A sudden loss of brain function due to disrupted blood flow." },
+    { name: "High Cholesterol", description: "Excess cholesterol in the blood increasing heart disease risk." },
+    { name: "Heart Disease (MI or CHD)", description: "A range of conditions affecting the heart, including myocardial infarction and coronary heart disease." }
   ];
 
   return (
@@ -46,8 +51,9 @@ function About() {
             <h3>Data Sources</h3>
             <p>Information provided on this platform is sourced from:</p>
             <ul>
-              <li>UK Biobank - UK Biobank</li>
-              <li>The Behavioral Risk Factor Surveillance System (BRFSS)</li>
+              <li>UK Biobank – A large-scale biomedical database from around 500,000 UK participants. It is widely used for medical and public health research.</li>
+              <li>CDC (Centers for Disease Control and Prevention) - Data collected through national health records, surveys (such as phone-based surveys like the Behavioral Risk Factor Surveillance System)</li>
+              <li>IHME, Global Burden of Disease</li>
             </ul>
           </div>
         </div>

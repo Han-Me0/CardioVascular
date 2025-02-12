@@ -1,10 +1,10 @@
 .header {
     display: flex;
     align-items: center;
-    background-color: var(--lightgray);
+    background-color: var(--white);
     padding: 0 40px;
     height: 100px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     position: relative;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .logo-text {
-    color: var(--white);
+    color: #202227;
     background: none;
     border: none;
     font-size: 2rem;
@@ -41,7 +41,7 @@
 }
 
 .main-title {
-    color: var(--white);
+    color: #202227;
     margin: 0;
     font-size: 1.4rem;
     text-align: center;
@@ -73,7 +73,7 @@
 
 .menu-link {
     text-decoration: none;
-    color: var(--white);
+    color: #202227;
     padding: 12px 18px;
     border-radius: 5px;
     transition: all 0.3s ease;

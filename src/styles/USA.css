@@ -10,14 +10,15 @@
   grid-template-columns: 350px 1fr;
   gap: 2rem;
   padding: 2rem;
-  background-color: #f8f9fa;
+  background-color: #EEEEEE;
 }
 
 .controls-card {
-  background: white;
+  background: #d5dcdfb4;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  color: #202227;
 }
 
 .dropdown-group {
@@ -29,6 +30,7 @@
 
 .styled-dropdown {
   width: 100%;
+  color: #202227;
   padding: 0.8rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -81,6 +83,10 @@
   color: #7f8c8d;
 }
 
+
+.leaflet-control-attribution {
+  display: none;
+}
 
 
 .map-section {

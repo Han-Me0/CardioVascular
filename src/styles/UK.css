@@ -10,7 +10,11 @@
   grid-template-columns: 350px 1fr;
   gap: 2rem;
   padding: 2rem;
-  background-color: #f8f9fa;
+  background-color: #EEEEEE;
+}
+
+.leaflet-control-attribution {
+  display: none;
 }
 
 .uk-controls-section {
@@ -19,12 +23,11 @@
 }
 
 .controls-card {
-  flex: 1;
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  overflow-y: auto;
+  margin-bottom: 1.5rem;
 }
 
 .dropdown-group {

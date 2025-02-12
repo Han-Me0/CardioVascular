@@ -17,7 +17,7 @@ function Header() {
             case '/usa':
                 return 'Prevalence Rate of Cardiovascular Diseases in the USA';
             case '/about':
-                return 'About CardioVascularView';
+                return 'About';
             default:
                 return 'CardioVascularView';
         }

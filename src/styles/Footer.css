@@ -1,6 +1,6 @@
 /* General Footer Styling */
 .footer {
-    background-image: linear-gradient(#8B1818, #5C0000);
+    background-image: linear-gradient(#F8F6ED, #F8F6ED);
     /* Dark background */
     color: #EEEEEE;
     /* Light text */
@@ -33,6 +33,7 @@
     text-align: center;
     padding: 0 10px;
     line-height: 1.5;
+    color: #686D76;
 }
 
 .footer-button {
@@ -42,8 +43,8 @@
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #fdfdfd;
-    color: #000;
+    background-color: #ca2929;
+    color: #EEEEEE;
     cursor: pointer;
     transition: border-color .25s;
     max-width: 100%;
@@ -53,7 +54,7 @@
 .footer-button a {
     display: inline-block;
     text-decoration: none;
-    color: black;
+    color: #EEEEEE;
     /* Make button inline */
 }
 
