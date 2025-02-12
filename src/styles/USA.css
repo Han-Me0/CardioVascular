@@ -1,10 +1,10 @@
-.uk-container {
+.usa-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-.uk-content-wrapper {
+.usa-content-wrapper {
   flex: 1;
   display: grid;
   grid-template-columns: 350px 1fr;
@@ -13,21 +13,12 @@
   background-color: #EEEEEE;
 }
 
-.leaflet-control-attribution {
-  display: none;
-}
-
-.uk-controls-section {
-  display: flex;
-  flex-direction: column;
-}
-
 .controls-card {
-  background: white;
+  background: #d5dcdfb4;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1.5rem;
+  color: #202227;
 }
 
 .dropdown-group {
@@ -39,6 +30,7 @@
 
 .styled-dropdown {
   width: 100%;
+  color: #202227;
   padding: 0.8rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -91,15 +83,20 @@
   color: #7f8c8d;
 }
 
+
+.leaflet-control-attribution {
+  display: none;
+}
+
+
 .map-section {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  height: 100%;
 }
 
 .leaflet-container {
-  height: 100% !important;
+  height: 70vh;
   width: 100%;
 }
 
@@ -126,7 +123,7 @@
 }
 
 @media (max-width: 768px) {
-  .uk-content-wrapper {
+  .usa-content-wrapper {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
@@ -136,6 +133,6 @@
   }
   
   .leaflet-container {
-    height: 50vh !important;
+    height: 50vh;
   }
 }

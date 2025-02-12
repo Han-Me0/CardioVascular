@@ -1,10 +1,10 @@
 .about-wrapper {
-    background-color: #f8f9fa;
+    background-color: white;
     min-height: 100vh;
   }
   
   .about-hero {
-    background: linear-gradient(to bottom, #8B1818, #5C0000);
+    background: linear-gradient(to bottom, #EEEEEE, #EEEEEE);
     height: 320px;
     position: relative;
     overflow: hidden;
@@ -14,7 +14,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 80px 20px;
-    color: white;
+    color: #202227;
     position: relative;
     z-index: 2;
     text-align: center;
@@ -66,7 +66,7 @@
   
   .main-content h2 {
     text-align: center;
-    color: #2c3e50;
+    color: #202227;
     font-size: 2rem;
     margin: 60px 0 40px;
   }
@@ -99,7 +99,7 @@
   
   .card-icon {
     padding: 20px;
-    background-color: #8B1818;
+    background-color: #202227;
   }
   
   .card-icon span {
@@ -114,13 +114,13 @@
   }
   
   .card-content h3 {
-    color: #8B1818;
+    color: #202227;
     font-size: 1.4rem;
     margin-bottom: 15px;
   }
   
   .card-content p {
-    color: #64748b;
+    color: #202227;
     line-height: 1.6;
   }
   
@@ -144,15 +144,14 @@
   }
 
   .data-source-card {
-    background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+    background: white;
     border-radius: 16px;
     padding: 40px;
     margin-top: 80px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid #20222736;
   }
   
   .data-source-card:hover {
@@ -160,7 +159,7 @@
   }
   
   .data-source-card h3 {
-    color: #8B1818;
+    color: #202227;
     font-size: 1.8rem;
     margin-bottom: 20px;
     font-weight: 600;
@@ -168,7 +167,7 @@
   }
   
   .data-source-card p {
-    color: #4a5568;
+    color: #202227;
     line-height: 1.8;
     margin-bottom: 25px;
     font-size: 1.1rem;
@@ -181,7 +180,7 @@
   }
   
   .data-source-card li {
-    color: #4a5568;
+    color: #202227;
     padding: 15px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     font-size: 1.1rem;
