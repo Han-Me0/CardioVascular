@@ -41,22 +41,22 @@ function Header() {
                 <nav className="menu">
                     <ul className="menu-list">
                         <li className="menu-item">
-                            <NavLink to="/" className="menu-link" activeClassName="active">
+                            <NavLink to="/" className={({ isActive }) => isActive ? "menu-link active" : "menu-link"}>
                                 World Map
                             </NavLink>
                         </li>
                         <li className="menu-item">
-                            <NavLink to="/uk" className="menu-link" activeClassName="active">
+                            <NavLink to="/uk" className={({ isActive }) => isActive ? "menu-link active" : "menu-link"}>
                                 UK Map
                             </NavLink>
                         </li>
                         <li className="menu-item">
-                            <NavLink to="/usa" className="menu-link" activeClassName="active">
+                            <NavLink to="/usa" className={({ isActive }) => isActive ? "menu-link active" : "menu-link"}>
                                 USA Map
                             </NavLink>
                         </li>
                         <li className="menu-item">
-                            <NavLink to="/about" className="menu-link" activeClassName="active">
+                            <NavLink to="/about" className={({ isActive }) => isActive ? "menu-link active" : "menu-link"}>
                                 About
                             </NavLink>
                         </li>
