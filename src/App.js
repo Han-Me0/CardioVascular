@@ -10,6 +10,7 @@ import UK from './pages/UK';
 import Footer from './components/Footer';
 import Contact from './components/Contact';
 import USA from './pages/USA';
+import CityBarChart from './pages/CityBarChart';
 
 function App() {
 
@@ -24,7 +25,8 @@ function App() {
           <Route path="/about" element={<About />} /> {/* Add route to About page */}
           <Route path="/uk" element={<UK />} /> {/* Add route to About page */}
           <Route path="/contact" element={<Contact />} /> {/* Add Contact route */}
-          <Route path="/usa" element={<USA />} /> {/* Add Contact route */}
+          <Route path="/usa" element={<USA />} />
+          <Route path="/citybarchart" element={<CityBarChart />} />
         </Routes>
         <Footer /> {/* Place footer outside routes so it's always visible */}
       </div>
