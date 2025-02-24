@@ -2,9 +2,6 @@
 import React from "react";
 import '../styles/Contact.css';
 import Header from '../components/Header';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 function Contact() {
   return (
@@ -16,7 +13,6 @@ function Contact() {
           <h3>Get in Touch</h3>
           
           <div className="contact-info">
-            <FontAwesomeIcon icon={faMapMarkerAlt} />
             <p>
               Data Mining<br />
               Johannes Gutenberg University<br />
@@ -25,7 +21,6 @@ function Contact() {
           </div>
 
           <div className="contact-info">
-            <FontAwesomeIcon icon={faEnvelope} />
             <p>
               <a href="mailto:hlane@uni-mainz.de">
                 hlane@uni-mainz.de
@@ -34,7 +29,6 @@ function Contact() {
           </div>
 
           <div className="contact-info">
-            <FontAwesomeIcon icon={faLinkedin} />
             <p>
               <a 
                 href="https://www.linkedin.com/company/nightingale-project" 
